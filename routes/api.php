@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 /* Public route */
 Route::get('access-token', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
 /* Private route */
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
@@ -25,5 +26,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResources([
         'home' => HomeController::class
     ]);
-//    Route::apiResource('user', UserController::class);
 });

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
@@ -18,14 +21,9 @@ class AuthController extends Controller
      * @param Request $request
      * @return Application|ResponseFactory|JsonResponse|Response
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         try {
-            $request->validate([
-                'email'    => 'email|required',
-                'password' => 'required'
-            ]);
-
             $credentials = $request->only(['email', 'password']);
 
             $user = User::where('email', $credentials['email'])->first();
@@ -52,6 +50,30 @@ class AuthController extends Controller
         }
     }
 
+    public function register(RegisterRequest $request)
+    {
+        $data = $request->only(['name', 'description', 'email', 'password']);
+
+        $data['password'] = bcrypt($data['password']);
+
+        try {
+            $user = User::create($data);
+
+            event(new Registered($user));
+
+            return response()->json([
+                'code'    => 200,
+                'message' => 'Registered successfully'
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'code'    => 500,
+                'message' => 'error registration',
+                'errors'  => $exception
+            ]);
+        }
+    }
+
     public function logout(Request $request)
     {
         if ($request->user()->currentAccessToken()->delete()) {
@@ -67,7 +89,8 @@ class AuthController extends Controller
         }
     }
 
-    public function currentUser(Request $request){
+    public function currentUser(Request $request)
+    {
         return new UserResource($request->user());
     }
 }
