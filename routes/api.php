@@ -23,6 +23,8 @@ Route::post('register', [AuthController::class, 'register']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('me', [AuthController::class, 'currentUser']);
+    Route::put('me', [AuthController::class, 'updateUser']);
+    Route::put('me/change-password', [AuthController::class, 'changePassword']);
     Route::apiResources([
         'home' => HomeController::class
     ]);
