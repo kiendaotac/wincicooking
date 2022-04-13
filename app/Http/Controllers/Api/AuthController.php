@@ -121,7 +121,8 @@ class AuthController extends Controller
         ]);
         try {
             $url = Str::start($request->file('avatar')->store('public/avatars'), 'public/');
-            $url = url(Str::substr($url, Str::length('public/')));
+            $url = Str::start(Str::substr($url, Str::length('public/')), 'storage/');
+            $url = url($url);
         } catch (\Exception $exception) {
             return response()->json([
                 'code'    => 500,
