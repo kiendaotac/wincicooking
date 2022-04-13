@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -111,6 +112,32 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Change password successfully'
         ]);
+    }
+
+    public function uploadAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => ['required', 'file', 'image']
+        ]);
+        try {
+            $url = Str::start($request->file('avatar')->store('public/avatars'), 'public/');
+            $url = url(Str::substr($url, Str::length('public/')));
+        } catch (\Exception $exception) {
+            return response()->json([
+                'code'    => 500,
+                'success' => false,
+                'message' => 'error upload',
+                'errors'  => $exception
+            ]);
+        }
+
+        return response()->json([
+            'code'    => 200,
+            'success' => true,
+            'message' => 'Upload avatar successfully',
+            'url'     => $url
+        ]);
+
     }
 
     public function updateUser(UpdateUserRequest $request)

@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('me', [AuthController::class, 'currentUser']);
     Route::put('me', [AuthController::class, 'updateUser']);
     Route::put('me/change-password', [AuthController::class, 'changePassword']);
+    Route::post('me/upload-avatar', [AuthController::class, 'uploadAvatar']);
     Route::apiResources([
         'home' => HomeController::class
     ]);
