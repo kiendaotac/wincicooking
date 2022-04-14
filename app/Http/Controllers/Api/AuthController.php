@@ -143,7 +143,7 @@ class AuthController extends Controller
 
     public function updateUser(UpdateUserRequest $request)
     {
-        $data = $request->only(['name', 'description']);
+        $data = $request->only(['name', 'description', 'avatar']);
 
         Auth::user()->update($data);
 
