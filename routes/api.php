@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\RecipeController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResources([
         'home'     => HomeController::class,
         'category' => CategoryController::class,
-        'recipe'   => RecipeController::class
+        'recipe'   => RecipeController::class,
+        'post'     => PostController::class
     ]);
 });
