@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StatusEnum;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Database\Migrations\Migration;
@@ -20,6 +21,7 @@ class CreateCategoriesTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('title');
             $table->string('description');
+            $table->string('status')->default(StatusEnum::ACTIVE);
             $table->timestamps();
         });
 

@@ -1,12 +1,11 @@
 <?php
 
 use App\Enums\StatusEnum;
-use App\Models\Post;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSectionsTable extends Migration
+class CreateDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,16 +14,19 @@ class CreateSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('details', function (Blueprint $table) {
             $table->id();
-            $table->string('causer_type');
-            $table->bigInteger('causer_id');
             $table->string('title');
-            $table->string('image')->nullable();
-            $table->text('content');
+            $table->json('content')->nullable();
+            $table->string('type');
             $table->tinyInteger('order')->default(0);
             $table->string('status')->default(StatusEnum::ACTIVE);
             $table->timestamps();
+        });
+
+        Schema::create('detail_recipe', function (Blueprint $table) {
+            $table->unsignedBigInteger('detail_id');
+            $table->unsignedBigInteger('recipe_id');
         });
     }
 
@@ -35,6 +37,6 @@ class CreateSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('details');
     }
 }

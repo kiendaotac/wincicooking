@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\CategoryResource;
 use App\Repositories\Contracts\CategoryRepository;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class CategoryController extends Controller
 {
     public $categoryRepository;
+
     public function __construct(CategoryRepository $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
@@ -20,7 +22,7 @@ class HomeController extends Controller
      *
      * @return CategoryCollection
      */
-    public function index()
+    public function index(): CategoryCollection
     {
         $category = $this->categoryRepository->all();
 
@@ -41,12 +43,12 @@ class HomeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return CategoryResource
      */
-    public function show($id)
+    public function show(int $id): CategoryResource
     {
-        //
+        return new CategoryResource($this->categoryRepository->show($id));
     }
 
     /**

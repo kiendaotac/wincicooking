@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HomeController;
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\RecipeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('me/change-password', [AuthController::class, 'changePassword']);
     Route::post('me/upload-avatar', [AuthController::class, 'uploadAvatar']);
     Route::apiResources([
-        'home' => HomeController::class
+        'home'     => HomeController::class,
+        'category' => CategoryController::class,
+        'recipe'   => RecipeController::class
     ]);
 });

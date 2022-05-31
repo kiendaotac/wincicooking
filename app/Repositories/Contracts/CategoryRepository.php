@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
-interface CategoryRepositoryContract
+interface CategoryRepository
 {
     public function all($paginate = 10);
 

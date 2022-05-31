@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Category;
+use App\Models\Recipe;
 
-class CategoryRepository implements \App\Repositories\Contracts\CategoryRepository
+class RecipeRepository implements \App\Repositories\Contracts\RecipeRepository
 {
 
     public function all($paginate = 10)
     {
-        return Category::with('recipes')->simplePaginate($paginate);
+        return Recipe::query()->latest()->paginate($paginate);
     }
 
     public function store($data)
@@ -19,7 +19,7 @@ class CategoryRepository implements \App\Repositories\Contracts\CategoryReposito
 
     public function show($id)
     {
-        return Category::findOrFail($id);
+        return Recipe::query()->where('id', $id)->where('status', 'ACTIVE')->with(['details', 'ingredients', 'content'])->firstOrFail();
     }
 
     public function update($data, $id)

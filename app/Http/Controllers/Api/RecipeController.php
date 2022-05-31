@@ -3,28 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryCollection;
-use App\Repositories\Contracts\CategoryRepository;
+use App\Http\Resources\RecipeResource;
+use App\Http\Resources\RecipeResourceCollection;
+use App\Repositories\Contracts\RecipeRepository;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class RecipeController extends Controller
 {
-    public $categoryRepository;
-    public function __construct(CategoryRepository $categoryRepository)
+    public $recipeRepository;
+
+    public function __construct(RecipeRepository $recipeRepository)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->recipeRepository = $recipeRepository;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return CategoryCollection
+     * @return RecipeResourceCollection
      */
-    public function index()
+    public function index(): RecipeResourceCollection
     {
-        $category = $this->categoryRepository->all();
-
-        return new CategoryCollection($category);
+        return new RecipeResourceCollection($this->recipeRepository->all());
     }
 
     /**
@@ -41,12 +41,12 @@ class HomeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RecipeResource
      */
-    public function show($id)
+    public function show(int $id): RecipeResource
     {
-        //
+        return new RecipeResource($this->recipeRepository->show($id));
     }
 
     /**

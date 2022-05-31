@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\CategoryRepositoryContract;
-use App\Repositories\Eloquent\CategoryRepository;
+use App\Repositories\Contracts\CategoryRepository;
+use App\Repositories\Contracts\RecipeRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -15,7 +15,8 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(CategoryRepositoryContract::class, CategoryRepository::class);
+        $this->app->bind(CategoryRepository::class, \App\Repositories\Eloquent\CategoryRepository::class);
+        $this->app->bind(RecipeRepository::class, \App\Repositories\Eloquent\RecipeRepository::class);
     }
 
     /**
