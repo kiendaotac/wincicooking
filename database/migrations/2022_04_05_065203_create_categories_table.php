@@ -20,7 +20,8 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
+            $table->tinyInteger('order')->default(0);
             $table->string('status')->default(StatusEnum::ACTIVE);
             $table->timestamps();
         });

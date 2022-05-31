@@ -17,8 +17,9 @@ class CreateRecipesTable extends Migration
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->text('image');
+            $table->tinyInteger('order')->default(0);
             $table->string('status')->default(StatusEnum::ACTIVE);
             $table->timestamps();
         });
