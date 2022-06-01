@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\DetailTypeEnum;
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -21,21 +22,21 @@ class Recipe extends Model
 
     public function details(): BelongsToMany
     {
-        return $this->belongsToMany(Detail::class)->where('type', DetailTypeEnum::DETAIL);
+        return $this->belongsToMany(Detail::class)->where('type', DetailTypeEnum::DETAIL)->where('status', StatusEnum::ACTIVE)->orderBy('order');
     }
 
     public function ingredients(): BelongsToMany
     {
-        return $this->belongsToMany(Detail::class)->where('type', DetailTypeEnum::INGREDIENTS);
+        return $this->belongsToMany(Detail::class)->where('type', DetailTypeEnum::INGREDIENTS)->where('status', StatusEnum::ACTIVE)->orderBy('order');
     }
 
     public function nutritional(): BelongsToMany
     {
-        return $this->belongsToMany(Detail::class)->where('type', DetailTypeEnum::NUTRITIONAL);
+        return $this->belongsToMany(Detail::class)->where('type', DetailTypeEnum::NUTRITIONAL)->where('status', StatusEnum::ACTIVE)->orderBy('order');
     }
 
     public function content(): MorphMany
     {
-        return $this->morphMany(Section::class, 'causer')->orderBy('order');
+        return $this->morphMany(Section::class, 'causer')->where('status', StatusEnum::ACTIVE)->orderBy('order');
     }
 }

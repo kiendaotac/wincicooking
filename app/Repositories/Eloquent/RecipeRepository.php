@@ -9,7 +9,7 @@ class RecipeRepository implements \App\Repositories\Contracts\RecipeRepository
 
     public function all($paginate = 10)
     {
-        return Recipe::query()->latest()->paginate($paginate);
+        return Recipe::query()->with(['categories'])->latest()->paginate($paginate);
     }
 
     public function store($data)
@@ -19,7 +19,7 @@ class RecipeRepository implements \App\Repositories\Contracts\RecipeRepository
 
     public function show($id)
     {
-        return Recipe::query()->where('id', $id)->where('status', 'ACTIVE')->with(['details', 'ingredients', 'content'])->firstOrFail();
+        return Recipe::query()->where('id', $id)->where('status', 'ACTIVE')->with(['details', 'ingredients', 'content', 'categories', 'nutritional'])->firstOrFail();
     }
 
     public function update($data, $id)
