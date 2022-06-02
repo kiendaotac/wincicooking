@@ -20,7 +20,7 @@ class PostRepository implements \App\Repositories\Contracts\PostRepository
 
     public function show($id)
     {
-        return Post::query()->where('id', $id)->where('status',StatusEnum::ACTIVE)->firstOrFail();
+        return Post::query()->where('id', $id)->where('status',StatusEnum::ACTIVE)->with(['content'])->firstOrFail();
     }
 
     public function update($data, $id)
