@@ -4,15 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\PostResourceCollection;
+use App\Http\Resources\RecipeResourceCollection;
 use App\Repositories\Contracts\CategoryRepository;
+use App\Repositories\Contracts\PostRepository;
+use App\Repositories\Contracts\RecipeRepository;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public $categoryRepository;
-    public function __construct(CategoryRepository $categoryRepository)
+    public $categoryRepository, $postRepository, $recipeRepository;
+    public function __construct(CategoryRepository $categoryRepository, RecipeRepository $recipeRepository, PostRepository $postRepository)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->recipeRepository = $recipeRepository;
+        $this->postRepository = $postRepository;
     }
 
     /**
@@ -25,6 +31,21 @@ class HomeController extends Controller
         $category = $this->categoryRepository->all();
 
         return new CategoryCollection($category);
+    }
+
+    public function getRecipeIdeas(Request $request)
+    {
+        return new RecipeResourceCollection($this->recipeRepository->getRecipeIdeas());
+    }
+
+    public function getCategoryIdeas(Request $request)
+    {
+        return new CategoryCollection($this->categoryRepository->getCategoryIdeas());
+    }
+
+    public function getFeaturedArticles(Request $request)
+    {
+        return new PostResourceCollection($this->postRepository->getFeaturedArticles());
     }
 
     /**

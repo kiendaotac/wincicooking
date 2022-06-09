@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Enums\StatusEnum;
 use App\Models\Category;
 
 class CategoryRepository implements \App\Repositories\Contracts\CategoryRepository
@@ -30,5 +31,15 @@ class CategoryRepository implements \App\Repositories\Contracts\CategoryReposito
     public function destroy($id)
     {
         // TODO: Implement destroy() method.
+    }
+
+    public function getCategoryIdeas()
+    {
+        return Category::query()->inRandomOrder()->limit(5)->get();
+    }
+
+    public function getRecipeByCategory()
+    {
+        return Category::query()->with(['recipes'])->where('status', StatusEnum::ACTIVE)->latest()->get();
     }
 }

@@ -32,4 +32,9 @@ class PostRepository implements \App\Repositories\Contracts\PostRepository
     {
         // TODO: Implement destroy() method.
     }
+
+    public function getFeaturedArticles()
+    {
+        return Post::query()->inRandomOrder()->limit(5)->get();
+    }
 }

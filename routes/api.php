@@ -29,9 +29,19 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('me/change-password', [AuthController::class, 'changePassword']);
     Route::post('me/upload-avatar', [AuthController::class, 'uploadAvatar']);
     Route::apiResources([
-        'home'     => HomeController::class,
         'category' => CategoryController::class,
-        'recipe'   => RecipeController::class,
         'post'     => PostController::class
     ]);
+    Route::group(['prefix' => 'home'], function (){
+        Route::get('/', [HomeController::class, 'index'])->name('home.index');
+        Route::get('recipe-ideas', [HomeController::class, 'getRecipeIdeas'])->name('home.recipe.ideas');
+        Route::get('category-ideas', [HomeController::class, 'getCategoryIdeas'])->name('home.category.ideas');
+        Route::get('featured-article', [HomeController::class, 'getFeaturedArticles'])->name('home.post.feature');
+    });
+
+    Route::group(['prefix' => 'recipe'], function () {
+        Route::get('/', [RecipeController::class, 'index']);
+        Route::get('show/{recipe}', [RecipeController::class, 'show']);
+        Route::get('recipe-by-category', [RecipeController::class, 'getRecipeByCategory']);
+    });
 });

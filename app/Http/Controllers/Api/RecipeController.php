@@ -3,18 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\RecipeResource;
 use App\Http\Resources\RecipeResourceCollection;
+use App\Repositories\Contracts\CategoryRepository;
 use App\Repositories\Contracts\RecipeRepository;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
-    public $recipeRepository;
+    public $recipeRepository, $categoryRepository;
 
-    public function __construct(RecipeRepository $recipeRepository)
+    public function __construct(RecipeRepository $recipeRepository, CategoryRepository $categoryRepository)
     {
         $this->recipeRepository = $recipeRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -25,6 +28,11 @@ class RecipeController extends Controller
     public function index(): RecipeResourceCollection
     {
         return new RecipeResourceCollection($this->recipeRepository->all());
+    }
+
+    public function getRecipeByCategory(Request $request)
+    {
+        return new CategoryCollection($this->categoryRepository->getRecipeByCategory());
     }
 
     /**

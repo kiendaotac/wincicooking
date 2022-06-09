@@ -31,4 +31,8 @@ class RecipeRepository implements \App\Repositories\Contracts\RecipeRepository
     {
         // TODO: Implement destroy() method.
     }
+
+    public function getRecipeIdeas() {
+        return Recipe::query()->inRandomOrder()->limit(5)->get();
+    }
 }
