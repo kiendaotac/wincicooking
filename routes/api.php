@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::group(['prefix' => 'recipe'], function () {
         Route::get('/', [RecipeController::class, 'index']);
-        Route::get('/{recipe}', [RecipeController::class, 'show']);
         Route::get('recipe-by-category', [RecipeController::class, 'getRecipeByCategory']);
+        Route::get('/{recipe}', [RecipeController::class, 'show']);
     });
 });
