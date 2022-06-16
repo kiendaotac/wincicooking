@@ -39,4 +39,9 @@ class Recipe extends Model
     {
         return $this->morphMany(Section::class, 'causer')->where('status', StatusEnum::ACTIVE)->orderBy('order');
     }
+
+    public function userLike()
+    {
+        return $this->belongsToMany(User::class, 'user_like_recipes', 'recipe_id', 'user_id');
+    }
 }

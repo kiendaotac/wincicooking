@@ -3,62 +3,40 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RecipeResourceCollection;
+use App\Repositories\Contracts\RecipeRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function like(Request $request)
     {
-        //
+        if ($request->action == 'like') {
+            Auth::user()->likes()->attach($request->payload);
+            return [
+                'code'    => 200,
+                'success' => true,
+                'message' => 'Like bài viết thành công'
+            ];
+        } elseif($request->action == 'unlike') {
+            Auth::user()->likes()->detach($request->payload);
+            return [
+                'code'    => 200,
+                'success' => true,
+                'message' => 'Unlike bài viết thành công'
+            ];
+        }
+
+        return [
+            'code'    => 200,
+            'success' => false,
+            'message' => 'Chưa xác định hành động'
+        ];
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function likes(Request $request, RecipeRepository $recipeRepository)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return new RecipeResourceCollection($recipeRepository->userLikes());
     }
 }

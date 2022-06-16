@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\RecipeController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('me', [AuthController::class, 'updateUser']);
     Route::put('me/change-password', [AuthController::class, 'changePassword']);
     Route::post('me/upload-avatar', [AuthController::class, 'uploadAvatar']);
+    Route::post('me/like', [UserController::class, 'like'])->name('user.like');
+    Route::get('me/likes', [UserController::class, 'likes'])->name('user.likes');
     Route::apiResources([
         'category' => CategoryController::class,
         'post'     => PostController::class

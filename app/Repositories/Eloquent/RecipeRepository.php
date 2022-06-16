@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Recipe;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeRepository implements \App\Repositories\Contracts\RecipeRepository
 {
@@ -34,5 +35,12 @@ class RecipeRepository implements \App\Repositories\Contracts\RecipeRepository
 
     public function getRecipeIdeas() {
         return Recipe::query()->inRandomOrder()->limit(5)->get();
+    }
+
+    public function userLikes()
+    {
+        return Recipe::whereHas('userLike', function ($q){
+            $q->where('id', Auth::id());
+        })->paginate(10);
     }
 }
