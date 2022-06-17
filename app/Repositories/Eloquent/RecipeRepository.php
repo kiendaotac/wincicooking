@@ -20,7 +20,7 @@ class RecipeRepository implements \App\Repositories\Contracts\RecipeRepository
 
     public function show($id)
     {
-        return Recipe::query()->where('id', $id)->where('status', 'ACTIVE')->with(['details', 'ingredients', 'content', 'categories', 'nutritional'])->firstOrFail();
+        return Recipe::query()->where('id', $id)->where('status', 'ACTIVE')->with(['details', 'ingredients', 'content', 'categories', 'nutritional', 'ingredientsNutritional'])->firstOrFail();
     }
 
     public function update($data, $id)

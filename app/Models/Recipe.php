@@ -35,6 +35,11 @@ class Recipe extends Model
         return $this->belongsToMany(Detail::class)->where('type', DetailTypeEnum::NUTRITIONAL)->where('status', StatusEnum::ACTIVE)->orderBy('order');
     }
 
+    public function ingredientsNutritional(): BelongsToMany
+    {
+        return $this->belongsToMany(Detail::class)->where('type', DetailTypeEnum::INGREDIENTS_NUTRITIONAL)->where('status', StatusEnum::ACTIVE)->orderBy('order');
+    }
+
     public function content(): MorphMany
     {
         return $this->morphMany(Section::class, 'causer')->where('status', StatusEnum::ACTIVE)->orderBy('order');
