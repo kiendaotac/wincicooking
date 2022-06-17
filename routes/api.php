@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CommnentController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\RecipeController;
@@ -46,5 +47,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/', [RecipeController::class, 'index']);
         Route::get('recipe-by-category', [RecipeController::class, 'getRecipeByCategory']);
         Route::get('/{recipe}', [RecipeController::class, 'show']);
+    });
+
+    Route::group(['prefix' => 'comment', 'as' => 'comment.'], function (){
+        Route::post('/', [CommnentController::class, 'store'])->name('store');
     });
 });

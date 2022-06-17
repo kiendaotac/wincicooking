@@ -49,4 +49,9 @@ class Recipe extends Model
     {
         return $this->belongsToMany(User::class, 'user_like_recipes', 'recipe_id', 'user_id');
     }
+
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, 'causer')->where('status', StatusEnum::ACTIVE)->latest();
+    }
 }
