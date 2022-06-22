@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeResource extends JsonResource
 {
@@ -14,6 +15,6 @@ class RecipeResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return array_merge(parent::toArray($request), ['liked' => Auth::user()->likes()->whereId($this->id)->count() > 0]);
     }
 }
