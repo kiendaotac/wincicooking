@@ -21,4 +21,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('share/{type}/{id}', \App\Http\Controllers\ShareController::class)->name('share');
+
 require __DIR__.'/auth.php';
