@@ -50,7 +50,8 @@ class RecipesResource extends Resource
         return [
             RelationManagers\CategoriesRelationManager::class,
             RelationManagers\DetailsRelationManager::class,
-            RelationManagers\IngredientsRelationManager::class
+            RelationManagers\IngredientsRelationManager::class,
+            RelationManagers\NutritionalRelationManager::class
         ];
     }
     

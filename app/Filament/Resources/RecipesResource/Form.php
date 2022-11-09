@@ -54,13 +54,36 @@ class Form
         ];
     }
 
-    public static function getIngredientsFrom(): array
+    public static function getIngredientsForm(): array
     {
         return [
             Forms\Components\Card::make([
                 Forms\Components\TextInput::make('title')->label('Thành phần')
                     ->required()
                     ->placeholder('Thành phần'),
+                Forms\Components\TextInput::make('order')->label('Thứ tự')->numeric()->default(0)->required(),
+                Forms\Components\Select::make('status')->label('Trạng thái')
+                    ->required()
+                    ->default(StatusEnum::ACTIVE)
+                    ->options(StatusEnum::VALUE)
+                    ->searchable()
+                    ->disablePlaceholderSelection()
+            ])
+        ];
+    }
+
+    public static function getNutritionalForm(): array
+    {
+        return [
+            Forms\Components\Grid::make(1)->schema([
+                Forms\Components\Repeater::make('nutritional')
+                    ->schema([
+                        Forms\Components\TextInput::make('name')->required(),
+                        Forms\Components\TextInput::make('ration')->required(),
+                        Forms\Components\TextInput::make('rni')
+                    ])
+                    ->createItemButtonLabel('Thêm thành phần dinh dưỡng')
+                    ->label('Thành phần dinh dưỡng'),
                 Forms\Components\TextInput::make('order')->label('Thứ tự')->numeric()->default(0)->required(),
                 Forms\Components\Select::make('status')->label('Trạng thái')
                     ->required()

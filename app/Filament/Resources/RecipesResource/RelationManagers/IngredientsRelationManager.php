@@ -17,7 +17,7 @@ class IngredientsRelationManager extends BelongsToManyRelationManager
 
     public static function form(Form $form): Form
     {
-        return $form->schema(\App\Filament\Resources\RecipesResource\Form::getIngredientsFrom());
+        return $form->schema(\App\Filament\Resources\RecipesResource\Form::getIngredientsForm());
     }
 
     public static function table(Table $table): Table
