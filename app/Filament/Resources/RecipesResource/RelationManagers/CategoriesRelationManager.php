@@ -6,6 +6,7 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Model;
 
 class CategoriesRelationManager extends BelongsToManyRelationManager
 {
@@ -35,5 +36,10 @@ class CategoriesRelationManager extends BelongsToManyRelationManager
             ->filters([
                 //
             ]);
+    }
+
+    public static function getTitleForRecord(Model $ownerRecord): string
+    {
+        return 'Danh mục công thức';
     }
 }
