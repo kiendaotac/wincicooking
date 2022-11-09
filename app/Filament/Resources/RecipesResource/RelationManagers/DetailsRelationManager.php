@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\RecipesResource\RelationManagers;
 
 use App\Enums\DetailTypeEnum;
-use Filament\Forms;
+use App\Enums\StatusEnum;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
 use Filament\Resources\Table;
@@ -24,15 +24,40 @@ class DetailsRelationManager extends BelongsToManyRelationManager
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        return[
-            'title' => DetailTypeEnum::DETAIL_VALUE[$data['content']],
+        return [
+            'title'   => DetailTypeEnum::DETAIL_VALUE[$data['content']],
             'content' => [
-                'name' => DetailTypeEnum::DETAIL_VALUE[$data['content']],
-                'type' => $data['content'],
+                'name'  => DetailTypeEnum::DETAIL_VALUE[$data['content']],
+                'type'  => $data['content'],
                 'value' => $data['value']
             ],
-            'type' => DetailTypeEnum::DETAIL,
-            'order' => $data['order']
+            'type'    => DetailTypeEnum::DETAIL,
+            'order'   => $data['order'],
+            'status'  => $data['status'] ?? StatusEnum::ACTIVE
+        ];
+    }
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        return [
+            'content' => $data['content']['type'] ?? 'TYPE',
+            'value'   => $data['content']['value'] ?? '',
+            'order'   => $data['order'] ?? 0,
+            'status'  => $data['status'] ?? StatusEnum::ACTIVE
+        ];
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        return [
+            'title'   => DetailTypeEnum::DETAIL_VALUE[$data['content']],
+            'content' => [
+                'name'  => DetailTypeEnum::DETAIL_VALUE[$data['content']],
+                'type'  => $data['content'],
+                'value' => $data['value']
+            ],
+            'type'    => DetailTypeEnum::DETAIL,
+            'order'   => $data['order']
         ];
     }
 
@@ -53,5 +78,15 @@ class DetailsRelationManager extends BelongsToManyRelationManager
     public static function getTitleForRecord(Model $ownerRecord): string
     {
         return 'Chi tiết';
+    }
+
+    protected function canAttach(): bool
+    {
+        return false;
+    }
+
+    protected function canDetach(Model $record): bool
+    {
+        return false;
     }
 }
