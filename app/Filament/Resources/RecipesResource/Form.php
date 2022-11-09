@@ -53,4 +53,22 @@ class Form
             ])
         ];
     }
+
+    public static function getIngredientsFrom(): array
+    {
+        return [
+            Forms\Components\Card::make([
+                Forms\Components\TextInput::make('title')->label('Thành phần')
+                    ->required()
+                    ->placeholder('Thành phần'),
+                Forms\Components\TextInput::make('order')->label('Thứ tự')->numeric()->default(0)->required(),
+                Forms\Components\Select::make('status')->label('Trạng thái')
+                    ->required()
+                    ->default(StatusEnum::ACTIVE)
+                    ->options(StatusEnum::VALUE)
+                    ->searchable()
+                    ->disablePlaceholderSelection()
+            ])
+        ];
+    }
 }
