@@ -10,6 +10,8 @@ class Detail extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'content', 'type', 'order', 'status'];
+
     protected $casts = [
         'content' => 'array'
     ];
