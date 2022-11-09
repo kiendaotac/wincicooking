@@ -18,8 +18,7 @@ class DetailsRelationManager extends BelongsToManyRelationManager
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema(\App\Filament\Resources\RecipesResource\Form::getDetailForm());
+        return $form->schema(\App\Filament\Resources\RecipesResource\Form::getDetailForm());
     }
 
     protected function mutateFormDataBeforeCreate(array $data): array
