@@ -94,4 +94,20 @@ class Form
             ])
         ];
     }
+
+    public static function getContentForm()
+    {
+        return [
+            Forms\Components\TextInput::make('title')->label('Tiêu đề')->required(),
+            Forms\Components\FileUpload::make('image')->label('Hình ảnh')->image()->required(),
+            Forms\Components\Textarea::make('content')->label('Nội dung')->required(),
+            Forms\Components\TextInput::make('order')->label('Thứ tự')->numeric()->default(0),
+            Forms\Components\Select::make('status')->label('Trạng thái')
+                ->required()
+                ->default(StatusEnum::ACTIVE)
+                ->options(StatusEnum::VALUE)
+                ->searchable()
+                ->disablePlaceholderSelection(),
+        ];
+    }
 }
