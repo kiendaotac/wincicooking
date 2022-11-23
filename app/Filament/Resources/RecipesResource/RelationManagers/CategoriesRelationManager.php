@@ -14,6 +14,8 @@ class CategoriesRelationManager extends BelongsToManyRelationManager
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static bool $shouldPreloadAttachFormRecordSelectOptions = true;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -41,5 +43,15 @@ class CategoriesRelationManager extends BelongsToManyRelationManager
     public static function getTitleForRecord(Model $ownerRecord): string
     {
         return 'Danh mục công thức';
+    }
+
+    protected function canDelete(Model $record): bool
+    {
+        return false;
+    }
+
+    protected function canEdit(Model $record): bool
+    {
+        return false;
     }
 }
