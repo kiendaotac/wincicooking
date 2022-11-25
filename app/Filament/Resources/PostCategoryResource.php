@@ -18,24 +18,13 @@ class PostCategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $pluralLabel = "Danh mục bài viết";
+
+    protected static ?string $label = "Danh mục bài viết";
+
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\Card::make()->schema([
-                    Forms\Components\Select::make('parent_id')->label('Danh mục cha')
-                        ->options(PostCategory::all()->pluck('title', 'id'))
-                        ->searchable(),
-                    Forms\Components\TextInput::make('title')->label('Tên danh mục')->required(),
-                    Forms\Components\Textarea::make('description')->label('Mô tả danh mục')->required(),
-                    Forms\Components\TextInput::make('order')->numeric()->minValue(0)->required()->label('Thứ tự')->default(0),
-                    Forms\Components\Select::make('status')->label('Trạng thái')
-                        ->required()
-                        ->default(StatusEnum::ACTIVE)
-                        ->options(StatusEnum::VALUE)
-                        ->disablePlaceholderSelection()
-                ])
-            ]);
+        return $form->schema(PostCategoryResource\Form::getForm());
     }
 
     public static function table(Table $table): Table

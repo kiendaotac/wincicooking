@@ -11,6 +11,12 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
+    public function categories()
+    {
+        return $this->belongsToMany(PostCategory::class, 'category_post', 'category_id', 'post_id', 'id');
+    }
     public function content(): MorphMany
     {
         return $this->morphMany(Section::class, 'causer')->where('status', StatusEnum::ACTIVE)->orderBy('order');
