@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('image');
+            $table->tinyInteger('order')->default(0);
             $table->string('status')->default(StatusEnum::ACTIVE);
             $table->timestamps();
         });

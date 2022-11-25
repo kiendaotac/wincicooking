@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\RecipesResource\RelationManagers;
+namespace App\Filament\Resources\PostResource\RelationManagers;
 
+use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
 use Filament\Resources\Table;
@@ -18,7 +19,7 @@ class CategoriesRelationManager extends BelongsToManyRelationManager
 
     public static function form(Form $form): Form
     {
-        return $form->schema(\App\Filament\Resources\CategoryResource\Form::getForm());
+        return $form->schema(\App\Filament\Resources\PostCategoryResource\Form::getForm());
     }
 
     public static function table(Table $table): Table
@@ -39,9 +40,9 @@ class CategoriesRelationManager extends BelongsToManyRelationManager
             ]);
     }
 
-    public static function getTitleForRecord(Model $ownerRecord): string
+    protected function canEdit(Model $record): bool
     {
-        return 'Danh mục công thức';
+        return false;
     }
 
     protected function canDelete(Model $record): bool
@@ -49,8 +50,8 @@ class CategoriesRelationManager extends BelongsToManyRelationManager
         return false;
     }
 
-    protected function canEdit(Model $record): bool
+    public static function getTitleForRecord(Model $ownerRecord): string
     {
-        return false;
+        return 'Danh mục bài viết';
     }
 }

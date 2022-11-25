@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\RecipesResource\RelationManagers;
+namespace App\Filament\Resources\PostResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -17,7 +17,7 @@ class ContentRelationManager extends MorphManyRelationManager
 
     public static function form(Form $form): Form
     {
-        return $form->schema(\App\Filament\Resources\RecipesResource\Form::getContentForm());
+        return $form->schema(\App\Filament\Resources\PostResource\Form::getContentForm());
     }
 
     public static function table(Table $table): Table
@@ -36,6 +36,6 @@ class ContentRelationManager extends MorphManyRelationManager
 
     public static function getTitleForRecord(Model $ownerRecord): string
     {
-        return 'Nội dung công thức';
+        return 'Nội dung bài viết';
     }
 }

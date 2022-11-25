@@ -15,7 +15,7 @@ class Recipe extends Model
 
     protected $guarded = [];
 
-    public function categories()
+    public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
     }
