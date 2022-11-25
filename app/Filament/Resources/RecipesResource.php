@@ -20,6 +20,7 @@ class RecipesResource extends Resource
 
     protected static ?string $pluralLabel = 'Công thức nấu ăn';
 
+
     public static function form(Form $form): Form
     {
         return $form->schema(RecipesResource\Form::getForm());
