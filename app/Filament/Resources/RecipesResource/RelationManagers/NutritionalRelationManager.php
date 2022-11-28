@@ -57,7 +57,7 @@ class NutritionalRelationManager extends BelongsToManyRelationManager
             'ration' => $data['content']['ration'] ?? '',
             'rni'    => $data['content']['rni'] ?? ''
         ];
-        foreach ($data['content']['childen'] as $item) {
+        foreach ($data['content']['childen'] ?? [] as $item) {
             $content[] = $item;
         }
 
