@@ -19,9 +19,11 @@ class RecipeResource extends JsonResource
      */
     public function toArray($request)
     {
-        $recipe          = parent::toArray($request);
-        $recipe['image'] = asset(Storage::url($recipe['image']));
+        $recipe            = parent::toArray($request);
+        $recipe['image']   = asset(Storage::url($recipe['image']));
+        $recipe['content'] = new SectionResourceCollection($this->whenLoaded('content'));
+        $recipe['liked']   = Auth::user()->likes()->whereId($this->id)->count() > 0;
 
-        return array_merge($recipe, ['liked' => Auth::user()->likes()->whereId($this->id)->count() > 0]);
+        return $recipe;
     }
 }
