@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\Storage;
 
 class Recipe extends Model
 {
@@ -53,5 +54,10 @@ class Recipe extends Model
     public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'causer')->where('status', StatusEnum::ACTIVE)->latest();
+    }
+
+    public function getImageAttribute($value): string
+    {
+        return asset(Storage::url($value));
     }
 }
