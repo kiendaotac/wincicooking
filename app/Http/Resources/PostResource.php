@@ -18,8 +18,9 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
-        $post          = parent::toArray($request);
-        $post['image'] = asset(Storage::url($post['image']));
+        $post            = parent::toArray($request);
+        $post['image']   = asset(Storage::url($post['image']));
+        $post['content'] = new SectionResourceCollection($this->whenLoaded('content'));
 
         return $post;
     }
