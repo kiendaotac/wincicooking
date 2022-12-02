@@ -23,9 +23,4 @@ class Post extends Model
     {
         return $this->morphMany(Section::class, 'causer')->where('status', StatusEnum::ACTIVE)->orderBy('order');
     }
-
-    public function getImageAttribute($value): string
-    {
-        return asset(Storage::url($value));
-    }
 }
