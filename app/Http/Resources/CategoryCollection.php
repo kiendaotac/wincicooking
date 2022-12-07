@@ -2,23 +2,30 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|Arrayable|\JsonSerializable
+     * @param Request $request
+     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        return $this->collection->map(function ($item) {
+            foreach ($item->recipes as $recipe) {
+                $recipe->image = asset(Storage::url($recipe->image));
+            }
+
+            return $item;
+        })->toArray();
     }
 
-    public function with($request)
+    public function with($request): array
     {
         return [
             'code'    => 200,
@@ -26,6 +33,4 @@ class CategoryCollection extends ResourceCollection
             'message' => 'Thông tin category'
         ];
     }
-
-
 }
