@@ -23,4 +23,12 @@ final class DetailTypeEnum
         'SPEND' => 'Thời gian nấu',
         'ACCESSORY' => 'Phụ kiện'
     ];
+
+    const DETAIL_ICON = [
+        'TYPE'        => 'hammer-wrench',
+        'RATION'      => 'compost',
+        'PREPARATION' => 'backup-restore',
+        'SPEND'       => 'sun-clock',
+        'ACCESSORY'   => ' kettle-steam-outline'
+    ];
 }

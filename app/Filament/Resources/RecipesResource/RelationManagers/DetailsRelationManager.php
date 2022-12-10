@@ -26,9 +26,10 @@ class DetailsRelationManager extends BelongsToManyRelationManager
         return [
             'title'   => DetailTypeEnum::DETAIL_VALUE[$data['content']],
             'content' => [
-                'name'  => DetailTypeEnum::DETAIL_VALUE[$data['content']],
-                'type'  => $data['content'],
-                'value' => $data['value']
+                'name'     => DetailTypeEnum::DETAIL_VALUE[$data['content']],
+                'type'     => $data['content'],
+                'value'    => $data['value'],
+                'nameIcon' => DetailTypeEnum::DETAIL_ICON[$data['content']] ?? 'chef-hat'
             ],
             'type'    => DetailTypeEnum::DETAIL,
             'order'   => $data['order'],
@@ -51,9 +52,10 @@ class DetailsRelationManager extends BelongsToManyRelationManager
         return [
             'title'   => DetailTypeEnum::DETAIL_VALUE[$data['content']],
             'content' => [
-                'name'  => DetailTypeEnum::DETAIL_VALUE[$data['content']],
-                'type'  => $data['content'],
-                'value' => $data['value']
+                'name'     => DetailTypeEnum::DETAIL_VALUE[$data['content']],
+                'type'     => $data['content'],
+                'value'    => $data['value'],
+                'nameIcon' => DetailTypeEnum::DETAIL_ICON[$data['content']] ?? 'chef-hat'
             ],
             'type'    => DetailTypeEnum::DETAIL,
             'order'   => $data['order']
