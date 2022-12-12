@@ -30,7 +30,7 @@ class AuthController extends Controller
         try {
             $credentials = $request->only(['email', 'password']);
 
-            $user = User::where('email', $credentials['email'])->first();
+            $user = User::where('email', $credentials['email'])->whereStatus('ACTIVE')->first();
 
             if (!$user || !Hash::check($credentials['password'], $user->password, [])) {
                 return response([

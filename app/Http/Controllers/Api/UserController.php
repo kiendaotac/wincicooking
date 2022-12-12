@@ -39,4 +39,29 @@ class UserController extends Controller
     {
         return new RecipeResourceCollection($recipeRepository->userLikes());
     }
+
+    public function disable()
+    {
+        try {
+            $user = Auth::user();
+
+            $user->update([
+                'status' => 'INACTIVE'
+            ]);
+
+            $user->currentAccessToken()->delete();
+
+            return [
+                'code'    => 200,
+                'success' => true,
+                'message' => "Huỷ kích hoạt tài khoản {$user->name} thành công"
+            ];
+        } catch (\Exception $exception) {
+            return [
+                'code'    => 200,
+                'success' => false,
+                'message' => $exception->getMessage()
+            ];
+        }
+    }
 }

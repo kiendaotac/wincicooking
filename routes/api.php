@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('me/upload-avatar', [AuthController::class, 'uploadAvatar']);
     Route::post('me/like', [UserController::class, 'like'])->name('user.like');
     Route::get('me/likes', [UserController::class, 'likes'])->name('user.likes');
+    Route::post('me/disable', [UserController::class, 'disable'])->name('user.disable');
     Route::apiResources([
         'category' => CategoryController::class,
         'post'     => PostController::class
