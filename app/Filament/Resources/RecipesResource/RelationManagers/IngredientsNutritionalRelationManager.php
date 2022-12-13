@@ -7,6 +7,7 @@ use App\Enums\StatusEnum;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
 use Filament\Resources\Table;
+use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,8 @@ class IngredientsNutritionalRelationManager extends BelongsToManyRelationManager
     protected static string $relationship = 'ingredientsNutritional';
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    protected static ?string $label = 'Phần trăm dinh dưỡng';
 
     protected static ?string $title = DetailTypeEnum::VALUE[DetailTypeEnum::INGREDIENTS_NUTRITIONAL];
 
@@ -37,12 +40,13 @@ class IngredientsNutritionalRelationManager extends BelongsToManyRelationManager
                     ->getStateUsing(function (Model $record) {
                         return $record->content['value'];
                     }),
-                TextColumn::make('color')
+                ColorColumn::make('color')
                     ->label('Màu sắc')
+                    ->copyable()
+                    ->copyMessage('Đã sao chép mã màu')
                     ->getStateUsing(function (Model $record) {
-                        return '<div style="border-radius: 5px; width: 30px; height: 30px; background: '.$record->content['color'].'"></div>';
+                    return $record->content['color'];
                     })
-                    ->html()
             ])
             ->filters([
                 //

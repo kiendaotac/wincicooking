@@ -15,6 +15,8 @@ class NutritionalRelationManager extends BelongsToManyRelationManager
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static ?string $label = 'Giá trị dinh dưỡng';
+
     protected static ?string $title = DetailTypeEnum::VALUE[DetailTypeEnum::NUTRITIONAL];
 
     public static function form(Form $form): Form

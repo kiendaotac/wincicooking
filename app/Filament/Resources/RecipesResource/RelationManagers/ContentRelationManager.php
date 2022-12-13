@@ -18,6 +18,8 @@ class ContentRelationManager extends MorphManyRelationManager
 
     protected static ?string $title = 'Nội dung công thức';
 
+    protected static ?string $label = 'Nội dung công thức';
+
 
     public static function form(Form $form): Form
     {
