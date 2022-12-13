@@ -37,6 +37,12 @@ class IngredientsNutritionalRelationManager extends BelongsToManyRelationManager
                     ->getStateUsing(function (Model $record) {
                         return $record->content['value'];
                     }),
+                TextColumn::make('color')
+                    ->label('Màu sắc')
+                    ->getStateUsing(function (Model $record) {
+                        return '<div style="border-radius: 5px; width: 30px; height: 30px; background: '.$record->content['color'].'"></div>';
+                    })
+                    ->html()
             ])
             ->filters([
                 //
