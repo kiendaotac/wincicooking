@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\RecipesResource\RelationManagers;
 
+use App\Enums\DetailTypeEnum;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\MorphManyRelationManager;
@@ -14,6 +15,9 @@ class ContentRelationManager extends MorphManyRelationManager
     protected static string $relationship = 'content';
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    protected static ?string $title = 'Nội dung công thức';
+
 
     public static function form(Form $form): Form
     {

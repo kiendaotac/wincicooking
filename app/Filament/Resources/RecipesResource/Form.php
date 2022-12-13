@@ -110,4 +110,24 @@ class Form
                 ->disablePlaceholderSelection(),
         ];
     }
+
+    public static function getIngredientsNutritionForm(): array
+    {
+        return [
+            Forms\Components\Card::make([
+                Forms\Components\TextInput::make('name')->label('Tên thành phần dinh dưỡng')
+                    ->required()
+                    ->placeholder('Tên thành phần'),
+                Forms\Components\TextInput::make('value')->label('Giá trị')->numeric()->default(0)->required(),
+                Forms\Components\ColorPicker::make('color')->default('#2a9d8f'),
+                Forms\Components\TextInput::make('order')->label('Thứ tự')->numeric()->default(0)->required(),
+                Forms\Components\Select::make('status')->label('Trạng thái')
+                    ->required()
+                    ->default(StatusEnum::ACTIVE)
+                    ->options(StatusEnum::VALUE)
+                    ->searchable()
+                    ->disablePlaceholderSelection()
+            ])
+        ];
+    }
 }

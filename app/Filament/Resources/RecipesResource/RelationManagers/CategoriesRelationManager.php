@@ -14,6 +14,9 @@ class CategoriesRelationManager extends BelongsToManyRelationManager
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static ?string $title = 'Danh mục công thức';
+
+
     protected static bool $shouldPreloadAttachFormRecordSelectOptions = true;
 
     public static function form(Form $form): Form

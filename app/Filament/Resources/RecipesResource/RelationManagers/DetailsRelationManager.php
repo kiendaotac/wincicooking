@@ -16,6 +16,8 @@ class DetailsRelationManager extends BelongsToManyRelationManager
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static ?string $title = 'Chi tiết';
+
     public static function form(Form $form): Form
     {
         return $form->schema(\App\Filament\Resources\RecipesResource\Form::getDetailForm());

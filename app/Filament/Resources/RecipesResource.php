@@ -53,7 +53,8 @@ class RecipesResource extends Resource
             RelationManagers\DetailsRelationManager::class,
             RelationManagers\IngredientsRelationManager::class,
             RelationManagers\NutritionalRelationManager::class,
-            RelationManagers\ContentRelationManager::class
+            RelationManagers\ContentRelationManager::class,
+            RelationManagers\IngredientsNutritionalRelationManager::class
         ];
     }
     

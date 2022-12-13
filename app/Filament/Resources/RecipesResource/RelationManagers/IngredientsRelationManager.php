@@ -15,6 +15,8 @@ class IngredientsRelationManager extends BelongsToManyRelationManager
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static ?string $title = DetailTypeEnum::VALUE[DetailTypeEnum::INGREDIENTS];
+
     public static function form(Form $form): Form
     {
         return $form->schema(\App\Filament\Resources\RecipesResource\Form::getIngredientsForm());
