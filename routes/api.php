@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CommnentController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\RecipeController;
+use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,9 @@ use Illuminate\Support\Facades\Route;
 /* Public route */
 Route::get('access-token', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
+Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
+    Route::get('logo', [SettingController::class, 'getLogo'])->name('getLogo');
+});
 /* Private route */
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
